@@ -1,9 +1,12 @@
 <?php
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "travis";
+require_once( __DIR__ . "/../env.php" );
+
+
+$servername = $_ENV["DB_SERVER"];
+$username   = $_ENV["DB_USER"];
+$password   = $_ENV["DB_PASSWORD"];
+$dbname     = $_ENV["DB_NAME"];
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
