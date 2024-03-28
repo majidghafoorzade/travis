@@ -37,7 +37,7 @@ class RSI14Trade {
     function getCurrentPrice() {
         $req = new Fetch([
             'method' => 'GET',
-            'url' => 'https://api.nobitex.ir/v2/orderbook/BTCIRT'
+            'url' => 'https://api.nobitex.ir/v2/orderbook/AVAXIRT'
         ]);
 
         $res = $req->send();
@@ -61,7 +61,7 @@ class RSI14Trade {
         
         $sql = "
             SELECT price
-            FROM btcirt_price
+            FROM avaxirt_price
             ORDER BY reg_date DESC
             LIMIT 1 
         ";
@@ -90,7 +90,7 @@ class RSI14Trade {
         }
 
         $sql = "
-            INSERT INTO btcirt_price
+            INSERT INTO avaxirt_price
             (price, price_change)
             VALUES
             ($price, $price_change)
@@ -112,7 +112,7 @@ class RSI14Trade {
 
         $sql = "
             SELECT price_change
-            FROM btcirt_price 
+            FROM avaxirt_price 
             ORDER BY reg_date DESC
             LIMIT 14
         ";
@@ -139,7 +139,7 @@ class RSI14Trade {
         global $conn;
 
         $sql = "
-            INSERT INTO btcirt_rsi
+            INSERT INTO avaxirt_rsi
             (rsi)
             VALUES
             ($RSI)
@@ -170,7 +170,7 @@ class RSI14Trade {
 
         $sql = "
             SELECT * 
-            FROM btcirt_trades
+            FROM avaxirt_trades
             ORDER BY reg_date DESC
             LIMIT 1
         ";
@@ -198,7 +198,7 @@ class RSI14Trade {
         global $conn;
         $sql = "
             SELECT *
-            FROM btcirt_rsi
+            FROM avaxirt_rsi
             ORDER BY reg_date DESC
             LIMIT 1
         ";
@@ -228,7 +228,7 @@ class RSI14Trade {
         global $conn;
         $sql = "
             SELECT *
-            FROM btcirt_price
+            FROM avaxirt_price
             ORDER BY reg_date DESC
             LIMIT 1  
         ";
@@ -257,7 +257,7 @@ class RSI14Trade {
 
         $buy_sql = "
             SELECT *
-            FROM btcirt_trades
+            FROM avaxirt_trades
             WHERE type = 'buy'
             ORDER BY reg_date DESC
             LIMIT 1
@@ -272,7 +272,7 @@ class RSI14Trade {
         
         $current_sql = "
             SELECT *
-            FROM btcirt_price
+            FROM avaxirt_price
             ORDER BY reg_date DESC
             LIMIT 1
         ";
@@ -306,7 +306,7 @@ class RSI14Trade {
 
         $buy_sql = "
             SELECT *
-            FROM btcirt_trades
+            FROM avaxirt_trades
             WHERE type = 'buy'
             ORDER BY reg_date DESC
             LIMIT 1
@@ -326,7 +326,7 @@ class RSI14Trade {
         
         $order = new NobitexOrder([
             'type' => 'buy',
-            'srcCurrency' => 'btc',
+            'srcCurrency' => 'avax',
             'dstCurrency' => 'rls',
             'amount' => round(800000 / $buyPrice, 2),
             'price' => $buyPrice,
@@ -346,7 +346,7 @@ class RSI14Trade {
         
         $order = new NobitexOrder([
             'type' => 'sell',
-            'srcCurrency' => 'btc',
+            'srcCurrency' => 'avax',
             'dstCurrency' => 'rls',
             'amount' => floor((800000 / $sellPrice) * 100) / 100,
             'price' => $sellPrice,
@@ -366,7 +366,7 @@ class RSI14Trade {
         global $conn;
 
         $sql = "
-            INSERT INTO btcirt_trades
+            INSERT INTO avaxirt_trades
             (type, price)
             VALUES
             ('$type', $price)
